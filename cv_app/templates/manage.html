@@ -1,0 +1,178 @@
+{% load static %}
+{% include "./header.html" %}
+
+<body class="app">
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <div class="col-auto">
+                    <h1 class="app-page-title mb-0">Manage</h1>
+                </div>
+                <div class="col-auto">
+                    <div class="page-utilities">
+                        <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                            <div class="col-auto">
+                                <form method="post" class="table-search-form row gx-1 align-items-center">
+                                    {% csrf_token %}
+                                    <div class="col-auto">
+                                        <input type="text" id="search-orders" name="keywords"
+                                               class="form-control search-orders" placeholder="Search (link by '+')">
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn app-btn-secondary">Search</button>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-primary text-white" href="../upload">
+                                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                            Upload
+                                        </a>
+                                    </div>
+                                </form>
+                            </div><!--//col-->
+                        </div><!--//row-->
+                    </div><!--//table-utilities-->
+                </div><!--//col-auto-->
+            </div><!--//row-->
+
+
+            <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+                <a class="flex-sm-fill text-sm-center nav-link active" id="all-tab" data-bs-toggle="tab"
+                   href="#all" role="tab" aria-controls="all" aria-selected="true">All</a>
+                <a class="flex-sm-fill text-sm-center nav-link" id="unfollowed-tab" data-bs-toggle="tab"
+                   href="#unfollowed" role="tab" aria-controls="unfollowed" aria-selected="false">Unfollowed</a>
+                <a class="flex-sm-fill text-sm-center nav-link" id="followed-tab" data-bs-toggle="tab"
+                   href="#followed" role="tab" aria-controls="followed" aria-selected="false">Followed</a>
+            </nav>
+
+
+            <div class="tab-content" id="orders-table-tab-content">
+                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <div class="app-card app-card-orders-table mb-5">
+                        <div class="app-card-body">
+                            <div class="table-responsive">
+
+                                <table class="table app-table-hover mb-0 text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="cell">Name</th>
+                                        <th class="cell">Date</th>
+                                        <th class="cell">Status</th>
+                                        <th class="cell">Option</th>
+                                        <th class="cell">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in all_query %}
+                                    <tr>
+                                        <th class="cell">{{ obj.name }}</th>
+                                        <th class="cell">{{ obj.date }}</th>
+                                        {% if obj.if_follow == 1 %}
+                                        <th class="cell">Followed</th>
+                                        <td class="cell"><a class="btn btn-danger btn-sm text-white"
+                                                            href="delete/?nid={{ obj.id }}">Cancel</a></td>
+                                        {% elif obj.if_follow == 0 %}
+                                        <th class="cell">Unfollowed</th>
+                                        <td class="cell"><a class="btn btn-primary btn-sm text-white"
+                                                            href="follow/?nid={{ obj.id }}">Follow</a></td>
+                                        {% endif %}
+                                        <td class="cell"><a class="btn-sm app-btn-secondary"
+                                                            href="../static/uploaded_cv/{{ obj.name }}">File</a></td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div><!--//table-responsive-->
+                        </div><!--//app-card-body-->
+                    </div><!--//app-card-->
+                </div><!--//tab-pane-->
+
+                <div class="tab-pane fade" id="unfollowed" role="tabpanel" aria-labelledby="unfollowed-tab">
+                    <div class="app-card app-card-orders-table mb-5">
+                        <div class="app-card-body">
+                            <div class="table-responsive">
+                                <table class="table app-table-hover mb-0 text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="cell">Name</th>
+                                        <th class="cell">Date</th>
+                                        <th class="cell">Status</th>
+                                        <th class="cell">Option</th>
+                                        <th class="cell">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in unfollowed_query %}
+                                    <tr>
+                                        <th class="cell">{{ obj.name }}</th>
+                                        <th class="cell">{{ obj.date }}</th>
+                                        <th class="cell">Unfollowed</th>
+                                        <td class="cell"><a class="btn btn-primary btn-sm text-white"
+                                                            href="follow/?nid={{ obj.id }}">Follow</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary"
+                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a></td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div><!--//table-responsive-->
+                        </div><!--//app-card-body-->
+                    </div><!--//app-card-->
+                </div><!--//tab-pane-->
+
+                <div class="tab-pane fade" id="followed" role="tabpanel" aria-labelledby="followed-tab">
+                    <div class="app-card app-card-orders-table mb-5">
+                        <div class="app-card-body">
+                            <div class="table-responsive">
+                                <table class="table app-table-hover mb-0 text-center">
+                                    <thead>
+                                    <tr>
+                                        <th class="cell">Name</th>
+                                        <th class="cell">Date</th>
+                                        <th class="cell">Status</th>
+                                        <th class="cell">Option</th>
+                                        <th class="cell">View</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for obj in followed_query %}
+                                    <tr>
+                                        <th class="cell">{{ obj.name }}</th>
+                                        <th class="cell">{{ obj.date }}</th>
+                                        <th class="cell">Followed</th>
+                                        <td class="cell"><a class="btn btn-danger btn-sm text-white"
+                                                            href="delete/?nid={{ obj.id }}">Cancel</a></td>
+                                        <td class="cell"><a class="btn-sm app-btn-secondary"
+                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a></td>
+
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div><!--//table-responsive-->
+                        </div><!--//app-card-body-->
+                    </div><!--//app-card-->
+                </div><!--//tab-pane-->
+
+            </div><!--//tab-content-->
+
+
+        </div><!--//container-fluid-->
+    </div><!--//app-content-->
+</div><!--//app-wrapper-->
+
+
+<!-- Javascript -->
+<script src="{% static '/plugins/popper.min.js' %}"></script>
+<script src="{% static '/plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+<!-- Page Specific JS -->
+<script src="{% static '/js/app.js' %}"></script>
+
+</body>
+

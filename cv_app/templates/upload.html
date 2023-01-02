@@ -1,0 +1,41 @@
+{% load static %}
+{% include "./header.html" %}
+
+<body class="app">
+<div class="app-wrapper">
+
+    <div class="app-content pt-3 p-md-3 p-lg-4">
+        <div class="container-xl">
+            <div class="row g-3 mb-4 align-items-center justify-content-between">
+                <div class="app-card app-card-accordion shadow-sm mb-4">
+                    <div class="app-card-header p-4 pb-2  border-0">
+                        <h1 class="app-page-title mb-0">Upload File</h1>
+                    </div><!--//app-card-header-->
+                    <div class="app-card-body p-4 pt-0">
+                        <div class="col-auto">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <a class="btn app-btn-secondary">{{form}}</a>
+                                <input type="submit" class="btn btn-primary text-white" value="Upload"/>
+                            </form>
+
+                        </div>
+                    </div><!--//app-card-body-->
+                </div>
+            </div><!--//row-->
+        </div><!--//container-fluid-->
+    </div><!--//app-content-->
+</div><!--//app-wrapper-->
+
+
+<!-- Javascript -->
+<script src="{% static 'plugins/popper.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+<!-- Page Specific JS -->
+<script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html> 
+
