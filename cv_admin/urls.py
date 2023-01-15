@@ -19,7 +19,7 @@ from django.urls import path
 from django.conf.urls import static
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('', views.index, name="home"),
     path('index/', views.index),
     path('index/delete/', views.index_delete),
     path('signup/', views.signup),
