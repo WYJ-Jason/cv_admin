@@ -73,7 +73,8 @@ class FileFieldForm(forms.Form):
 
 
 def single_upload(f):
-    file_path = os.path.join(os.path.abspath('../cv_app/static/'), 'uploaded_cv', f.name)
+    file_path = os.path.join(os.path.abspath('../cv_admin/cv_app/static/'), 'uploaded_cv', f.name)
+    print(file_path)
     with open(file_path, 'wb+') as destination:  # 写文件word
         for chunk in f.chunks():
             destination.write(chunk)
