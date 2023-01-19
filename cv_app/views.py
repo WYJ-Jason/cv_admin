@@ -96,9 +96,9 @@ def scratch(path):
             content += para.text
     elif path.endswith('.pdf'):
         pdffile = open(path, 'rb')  # 读取pdf文件
-        pdfreader = PyPDF2.PdfFileReader(pdffile)
-        for i in range(0, pdfreader.numPages):
-            content += pdfreader.getPage(i).extractText()
+        pdfreader = PyPDF2.PdfReader(pdffile)
+        page = pdfreader.pages[0]
+        content = page.extract_text()
     content = content.replace('\n', '').replace(' ', '')
     return content
 
@@ -148,12 +148,21 @@ def manage(request):
                   {'all_query': all_query, 'unfollowed_query': unfollowed_query, 'followed_query': followed_query})
 
 
-def manage_delete(request):
+def manage_cancel(request):
     info = request.session.get("info")
     if not info:
         return redirect("../login")
     nid = request.GET.get('nid')
     models.CV.objects.filter(id=nid).update(if_follow=0)
+    return redirect('/manage')
+
+
+def manage_delete(request):
+    info = request.session.get("info")
+    if not info:
+        return redirect("../login")
+    nid = request.GET.get('nid')
+    models.CV.objects.filter(id=nid).delete()
     return redirect('/manage')
 
 

@@ -62,6 +62,7 @@
                                         <th class="cell">Status</th>
                                         <th class="cell">Option</th>
                                         <th class="cell">View</th>
+                                        <th class="cell">Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -72,7 +73,7 @@
                                         {% if obj.if_follow == 1 %}
                                         <th class="cell">Followed</th>
                                         <td class="cell"><a class="btn btn-danger btn-sm text-white"
-                                                            href="delete/?nid={{ obj.id }}">Cancel</a></td>
+                                                            href="cancel/?nid={{ obj.id }}">Cancel</a></td>
                                         {% elif obj.if_follow == 0 %}
                                         <th class="cell">Unfollowed</th>
                                         <td class="cell"><a class="btn btn-primary btn-sm text-white"
@@ -80,7 +81,8 @@
                                         {% endif %}
                                         <td class="cell"><a class="btn-sm app-btn-secondary"
                                                             href="../static/uploaded_cv/{{ obj.name }}">File</a></td>
-
+                                        <td class="cell"><a class="btn btn-danger btn-sm text-white"
+                                                            href="delete/?nid={{ obj.id }}">Delete</a></td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>
@@ -102,6 +104,7 @@
                                         <th class="cell">Status</th>
                                         <th class="cell">Option</th>
                                         <th class="cell">View</th>
+                                        <th class="cell">Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -113,7 +116,11 @@
                                         <td class="cell"><a class="btn btn-primary btn-sm text-white"
                                                             href="follow/?nid={{ obj.id }}">Follow</a></td>
                                         <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a></td>
+                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a>
+                                        </td>
+                                        <td class="cell"><a class="btn btn-danger btn-sm text-white"
+                                                            href="delete/?nid={{ obj.id }}">Delete</a></td>
+
 
                                     </tr>
                                     {% endfor %}
@@ -136,6 +143,7 @@
                                         <th class="cell">Status</th>
                                         <th class="cell">Option</th>
                                         <th class="cell">View</th>
+                                        <th class="cell">Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -145,10 +153,12 @@
                                         <th class="cell">{{ obj.date }}</th>
                                         <th class="cell">Followed</th>
                                         <td class="cell"><a class="btn btn-danger btn-sm text-white"
-                                                            href="delete/?nid={{ obj.id }}">Cancel</a></td>
+                                                            href="cancel/?nid={{ obj.id }}">Cancel</a></td>
                                         <td class="cell"><a class="btn-sm app-btn-secondary"
-                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a></td>
-
+                                                            href="../static/uploaded_cv/{{ obj.name }}.pdf">File</a>
+                                        </td>
+                                        <td class="cell"><a class="btn btn-danger btn-sm text-white"
+                                                            href="delete/?nid={{ obj.id }}">Delete</a></td>
                                     </tr>
                                     {% endfor %}
                                     </tbody>

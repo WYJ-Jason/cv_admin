@@ -28,6 +28,7 @@ urlpatterns = [
     path('upload/', views.upload),
     path('manage/', views.manage),
     path('manage/follow/', views.manage_follow),
+    path('manage/cancel/', views.manage_cancel),
     path('manage/delete/', views.manage_delete),
     path('logout/', views.logout),
     path('error/', views.error),
